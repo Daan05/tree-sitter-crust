@@ -41,7 +41,7 @@ vim.filetype.add({
 })
 
 function UpdateCrustQueries()
-    local url = "https://raw.githubusercontent.com/Daan05/tree-sitter-crust/queries/crust/highlights.scm"
+    local url = "https://raw.githubusercontent.com/Daan05/tree-sitter-crust/master/queries/crust/highlights.scm"
     local dest = vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/queries/crust/highlights.scm"
 
     -- Create the directory if it doesn't exist
