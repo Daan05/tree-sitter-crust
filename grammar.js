@@ -9,6 +9,11 @@ module.exports = grammar({
   rules: {
     source_file: $ => repeat($._statement),
 
+    int_type: _ => token('int'),
+    float_type: _ => token('float'),
+    let_kw: _ => token('let'),
+    str_type: _ => token('str'),
+
     _statement: $ => choice(
       $.variable_declaration,
       $.assignment,
@@ -22,7 +27,7 @@ module.exports = grammar({
     comment: _ => token(seq('//', /.*/)),
 
     variable_declaration: $ => seq(
-      field('vartype', choice('let', 'int')),
+      field('vartype', $._datatype),
       field('name', $.identifier),
       '=',
       field('value', $._expression),
@@ -70,6 +75,13 @@ module.exports = grammar({
       '{',
       repeat($._statement),
       '}'
+    ),
+
+    _datatype: $ => choice(
+      $.int_type,
+      $.float_type,
+      $.let_kw,
+      $.str_type
     ),
 
     _expression: $ => choice(

@@ -1,36 +1,44 @@
-;; highlights.scm
+;; ---------------------
+;; Keywords & Types
+;; ---------------------
 
-;; Keywords
-"if" @conditional
-"else" @conditional
-"while" @repeat
-"for" @repeat
-"print" @function.call
+(variable_declaration vartype: (_) @type)
 
+(if_statement) @keyword
+(while_statement) @keyword
+(for_statement) @keyword
+(print_statement) @function.builtin
+
+;; ---------------------
 ;; Identifiers
+;; ---------------------
+
 (identifier) @variable
 
+;; ---------------------
 ;; Literals
+;; ---------------------
+
 (number) @number
 (string) @string
 
+;; ---------------------
 ;; Operators
-"==" @operator
-"+" @operator
-"<" @operator
-"=" @operator
+;; ---------------------
 
-;; Statements and blocks
-(variable_declaration 
-  vartype: (_) @keyword)
+(binary_expression operator: (_) @operator)
+
+;; ---------------------
+;; Statements & Blocks
+;; ---------------------
 
 (variable_declaration) @statement
 (assignment) @statement
-(if_statement) @conditional
-(while_statement) @repeat
-(for_statement) @repeat
-(print_statement) @function.call
 (block) @block
 
+;; ---------------------
 ;; Comments
+;; ---------------------
+
 (comment) @comment
+

@@ -9,6 +9,34 @@
         "name": "_statement"
       }
     },
+    "int_type": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "int"
+      }
+    },
+    "float_type": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "float"
+      }
+    },
+    "let_kw": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "let"
+      }
+    },
+    "str_type": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "str"
+      }
+    },
     "_statement": {
       "type": "CHOICE",
       "members": [
@@ -65,17 +93,8 @@
           "type": "FIELD",
           "name": "vartype",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "let"
-              },
-              {
-                "type": "STRING",
-                "value": "int"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_datatype"
           }
         },
         {
@@ -279,6 +298,27 @@
         {
           "type": "STRING",
           "value": "}"
+        }
+      ]
+    },
+    "_datatype": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "int_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "float_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "let_kw"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "str_type"
         }
       ]
     },
