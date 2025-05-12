@@ -22,7 +22,7 @@ module.exports = grammar({
     comment: _ => token(seq('//', /.*/)),
 
     variable_declaration: $ => seq(
-      choice('let', 'int'),
+      field('vartype', choice('let', 'int')),
       field('name', $.identifier),
       '=',
       field('value', $._expression),

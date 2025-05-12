@@ -338,6 +338,20 @@
             "named": true
           }
         ]
+      },
+      "vartype": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "int",
+            "named": false
+          },
+          {
+            "type": "let",
+            "named": false
+          }
+        ]
       }
     }
   },

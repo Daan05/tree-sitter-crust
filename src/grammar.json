@@ -62,17 +62,21 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "let"
-            },
-            {
-              "type": "STRING",
-              "value": "int"
-            }
-          ]
+          "type": "FIELD",
+          "name": "vartype",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "let"
+              },
+              {
+                "type": "STRING",
+                "value": "int"
+              }
+            ]
+          }
         },
         {
           "type": "FIELD",
