@@ -1,62 +1,43 @@
-;; highlights.scm
-
-;; Keywords
-[
-  "fn"
-  "return"
-  "if"
-  "for"
-  "while"
-  "let"
-  "int"
-  "print"
-] @keyword
-
-;; Types
-(int_type) @type
-
-;; Identifiers
-(identifier) @variable
-
-;; Function definitions
+; Function definitions
 (function_definition
   name: (identifier) @function)
 
-;; Function calls
-(call_expression
+; Function calls
+(function_call
   function: (identifier) @function.call)
 
-;; Numbers
-(integer_literal) @number
+; Variable declarations
+(variable_declaration
+  (identifier) @variable
+  type: (type) @type)
 
-;; Operators
+; Keywords: control structures
 [
-  "+"
-  "-"
-  "*"
-  "/"
-  "<"
-  ">"
-  "=="
-  "!="
-  "&&"
-  "||"
-  "!"
-] @operator
+  (if_statement)
+  (while_statement)
+  (for_statement)
+] @keyword.control
 
-;; Blocks
-(block) @punctuation.bracket
+; Boolean literals
+(boolean) @constant.builtin
 
-;; Delimiters
-[
-  "("
-  ")"
-  "{"
-  "}"
-  ";"
-  "="
-] @punctuation.delimiter
+; Numbers
+(number) @number
 
-;; Comments (if your grammar supports them)
+; Identifiers used in expressions
+(identifier) @variable
+
+; Operators
+(binary_expression operator: _ @operator)
+(unary_expression operator: _ @operator)
+
+; Comments
 (comment) @comment
+
+; Types
+(type) @type
+
+; Braces and punctuation (optional for editors that support it)
+["(" ")" "{" "}" "[" "]"] @punctuation.bracket
+[";" ","] @punctuation.delimiter
 

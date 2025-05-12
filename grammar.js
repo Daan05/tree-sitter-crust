@@ -1,69 +1,68 @@
 module.exports = grammar({
   name: 'crust',
 
-  extras: $ => [
-    /\s/,
-    $.comment
-  ],
-
   rules: {
     source_file: $ => repeat($._statement),
 
     _statement: $ => choice(
+      $.function_definition,
       $.variable_declaration,
-      $.assignment,
+      $.expression_statement,
       $.if_statement,
       $.while_statement,
       $.for_statement,
-      $.print_statement,
+      $.comment
+    ),
+
+    function_definition: $ => seq(
+      'fn',
+      $.identifier,
+      $.parameter_list,
       $.block
     ),
 
-    comment: _ => token(seq('//', /.*/)),
+    parameter_list: $ => seq(
+      '(',
+      optional(seq(
+        $.parameter,
+        repeat(seq(',', $.parameter))
+      )),
+      ')'
+    ),
+
+    parameter: $ => seq($.type, $.identifier),
 
     variable_declaration: $ => seq(
-      'let',
-      field('name', $.identifier),
+      choice('let', 'int'),
+      $.identifier,
       '=',
-      field('value', $._expression),
+      $.expression,
       ';'
     ),
 
-    assignment: $ => seq(
-      field('name', $.identifier),
-      '=',
-      field('value', $._expression),
-      ';'
-    ),
+    expression_statement: $ => seq($.expression, ';'),
 
     if_statement: $ => seq(
       'if',
-      field('condition', $._expression),
-      field('consequence', $.block),
-      optional(seq('else', field('alternative', $.block)))
+      $.expression,
+      $.block
     ),
 
     while_statement: $ => seq(
       'while',
-      field('condition', $._expression),
-      field('body', $.block)
+      $.expression,
+      $.block
     ),
 
     for_statement: $ => seq(
       'for',
       '(',
       $.variable_declaration,
-      $._expression,
+      $.expression,
       ';',
-      $.assignment,
+      $.assignment_expression,
       ')',
       $.block
-    ),
-
-    print_statement: $ => seq(
-      'print',
-      $._expression,
-      ';'
     ),
 
     block: $ => seq(
@@ -72,22 +71,48 @@ module.exports = grammar({
       '}'
     ),
 
-    _expression: $ => choice(
-      $.binary_expression,
+    assignment_expression: $ => seq(
+      $.identifier,
+      '=',
+      $.expression
+    ),
+
+    expression: $ => choice(
       $.identifier,
       $.number,
-      $.string
+      $.boolean,
+      $.binary_expression,
+      $.unary_expression,
+      $.function_call
+    ),
+
+    function_call: $ => seq(
+      $.identifier,
+      '(',
+      optional(seq($.expression, repeat(seq(',', $.expression)))),
+      ')'
     ),
 
     binary_expression: $ => prec.left(1, seq(
-      field('left', $._expression),
-      field('operator', choice('==', '<', '+')),
-      field('right', $._expression)
+      $.expression,
+      choice('+', '-', '*', '/', '&&', '||', '<', '>'),
+      $.expression
     )),
 
+    unary_expression: $ => prec(2, seq(
+      choice('!', '-'),
+      $.expression
+    )),
+
+    comment: _ => token(seq('//', /.*/)),
+
     identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
     number: _ => /\d+/,
-    string: _ => seq('"', /[^"]*/, '"'),
+
+    boolean: _ => choice('true', 'false'),
+
+    type: _ => choice('int', 'bool', 'string')
   }
 });
 
