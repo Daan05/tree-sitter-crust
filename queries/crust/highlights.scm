@@ -2,6 +2,7 @@
 
 ;; Keywords
 "let" @keyword
+"int" @keyword
 "if" @conditional
 "else" @conditional
 "while" @repeat

@@ -433,6 +433,10 @@
     "named": false
   },
   {
+    "type": "int",
+    "named": false
+  },
+  {
     "type": "let",
     "named": false
   },
