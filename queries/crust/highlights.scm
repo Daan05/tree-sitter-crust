@@ -1,8 +1,6 @@
 ;; highlights.scm
 
 ;; Keywords
-"let" @keyword
-"int" @keyword
 "if" @conditional
 "else" @conditional
 "while" @repeat
@@ -23,6 +21,9 @@
 "=" @operator
 
 ;; Statements and blocks
+(variable_declaration 
+  vartype: (_) @keyword)
+
 (variable_declaration) @statement
 (assignment) @statement
 (if_statement) @conditional
