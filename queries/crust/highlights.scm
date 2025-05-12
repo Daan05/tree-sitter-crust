@@ -1,43 +1,34 @@
-; Function definitions
-(function_definition
-  name: (identifier) @function)
+;; highlights.scm
 
-; Function calls
-(function_call
-  function: (identifier) @function.call)
+;; Keywords
+"let" @keyword
+"if" @conditional
+"else" @conditional
+"while" @repeat
+"for" @repeat
+"print" @function.call
 
-; Variable declarations
-(variable_declaration
-  (identifier) @variable
-  type: (type) @type)
-
-; Keywords: control structures
-[
-  (if_statement)
-  (while_statement)
-  (for_statement)
-] @keyword.control
-
-; Boolean literals
-(boolean) @constant.builtin
-
-; Numbers
-(number) @number
-
-; Identifiers used in expressions
+;; Identifiers
 (identifier) @variable
 
-; Operators
-(binary_expression operator: _ @operator)
-(unary_expression operator: _ @operator)
+;; Literals
+(number) @number
+(string) @string
 
-; Comments
+;; Operators
+"==" @operator
+"+" @operator
+"<" @operator
+"=" @operator
+
+;; Statements and blocks
+(variable_declaration) @statement
+(assignment) @statement
+(if_statement) @conditional
+(while_statement) @repeat
+(for_statement) @repeat
+(print_statement) @function.call
+(block) @block
+
+;; Comments
 (comment) @comment
-
-; Types
-(type) @type
-
-; Braces and punctuation (optional for editors that support it)
-["(" ")" "{" "}" "[" "]"] @punctuation.bracket
-[";" ","] @punctuation.delimiter
-
