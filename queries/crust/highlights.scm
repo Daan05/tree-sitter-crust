@@ -1,35 +1,62 @@
 ;; highlights.scm
 
 ;; Keywords
-"let" @keyword
-"if" @conditional
-"else" @conditional
-"while" @repeat
-"for" @repeat
-"print" @function.call
+[
+  "fn"
+  "return"
+  "if"
+  "for"
+  "while"
+  "let"
+  "int"
+  "print"
+] @keyword
+
+;; Types
+(int_type) @type
 
 ;; Identifiers
 (identifier) @variable
 
-;; Literals
-(number) @number
-(string) @string
+;; Function definitions
+(function_definition
+  name: (identifier) @function)
+
+;; Function calls
+(call_expression
+  function: (identifier) @function.call)
+
+;; Numbers
+(integer_literal) @number
 
 ;; Operators
-"==" @operator
-"+" @operator
-"<" @operator
-"=" @operator
+[
+  "+"
+  "-"
+  "*"
+  "/"
+  "<"
+  ">"
+  "=="
+  "!="
+  "&&"
+  "||"
+  "!"
+] @operator
 
-;; Statements and blocks
-(variable_declaration) @statement
-(assignment) @statement
-(if_statement) @conditional
-(while_statement) @repeat
-(for_statement) @repeat
-(print_statement) @function.call
-(block) @block
+;; Blocks
+(block) @punctuation.bracket
 
-;; Comments
+;; Delimiters
+[
+  "("
+  ")"
+  "{"
+  "}"
+  ";"
+  "="
+] @punctuation.delimiter
+
+;; Comments (if your grammar supports them)
 (comment) @comment
 
